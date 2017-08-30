@@ -1,0 +1,21 @@
+Trabalho Prático - Arquitetura de Computadores III
+Linguagem - C++
+Igor Machado Seixas
+João Paulo de Castro
+
+
+1o - fazer o parse de cada evento
+   Evento 0 - (Amizade)
+   		UserA : UserID ( Existe/nao existe )
+   		UserB : UserID ( Existe/nao existe )
+   		TimeStamp : Number
+
+   Evento 1 - (Upload)
+		UserA : UserID ( Existe/nao existe )
+   		Foto : photoId
+   		TimeStamp : DateOfUpload
+
+   Evento 2 - (Faved)
+   		UserA : UserID ( Existe/nao existe )
+   		Foto : photoId
+   		TimeStamp : DateOfFaved
