@@ -58,18 +58,16 @@ int main ()
     //////////////////////// END OF TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
   
   // Declaring elements
-  string str=base;  // Declaring str as base string
+  string str;  // Declaring str as base string
+  string* input; // Declaring the String Array
   string::size_type sz; // alias for size_t
   string userIdA;
   string userIdB;
   string photoId;
   string timeStamp;
-  int posf; // position for timestamp (used to print on test)
-  int pos;
-  int pos1;
-  int pos2;
+
   
-/**/
+/** / // WILL BE REMOVED TO TEST THE SPLITED PART OF THE STRING CONTAINING THE EVENT PART
   // testing which case of string it is
    // if find the occurence returns its position, if not returns -1
   pos = str.find(",0,"); // find another way to do it?
@@ -79,43 +77,50 @@ int main ()
   
   getline (cin, str);
   while(!str.empty()){
-    pos = str.find(",0,"); // find another way to do it?
-    pos1= str.find(",1,"); // find another way to do it? 
-    pos2= str.find(",2,"); // find another way to do it?
-      // If case 0 ( Friendship Action )
-    if ( pos > 0 ){
-      posf = pos;
-      userIdA = str.substr(0,12); // goes to string's position 0 and returns the next 12 chars (it counts the 0 too)
-      userIdB = str.substr(13,12); // same thing but starts from position 13.
-      timeStamp= str.substr(str.size()-1, str.size()); // Knowing that every event 0 the time stamp is 0, just return the last element
+    // Split the str String 
+    input = split(str, ',');
+    // input[0] - userId (ALWAYS)
+    // input[1] - userId/PhotoId
+    // input[2] - Event (ALWAYS)
+    // input[3] - timeStamp (ALWAYS)
+
+    if ( input[2].at(0) == '0' ){ // If case 0 ( Friendship Action )
+      //userIdA = str.substr(0,12); // goes to string's position 0 and returns the next 12 chars (it counts the 0 too)
+      userIdA = input[0];
+      //userIdB = str.substr(13,12); // same thing but starts from position 13.
+      userIdB = input[1];
+      //timeStamp= str.substr(str.size()-1, str.size()); // Knowing that every event 0 the time stamp is 0, just return the last element
+      timeStamp = input[3];
       cout << "\nEvent 0 - (Friendship)\n" 
                 << "  userIdA : " << userIdA << '\n' 
                 << "  userIdB : " << userIdB << '\n'
                 << "  TimeStamp : "<< timeStamp << '\n';
-    }else{
-      // If case 1 ( Post photo )
-      if (pos1 > 0){
-        userIdA = str.substr(0,12); // goes to string's position 0 and returns the next 12 chars (it counts the 0 too)
-        photoId = str.substr(13,10); // same thing but starts from position 13 and gets the next 10 elements ( Size of PhotoID ).
-        timeStamp= str.substr(str.size()-10, str.size()); // knowing that all other TimeStamp has the same size, return the 10 last elements
+    }else if (input[2].at(0) == '1'){  // If case 1 ( Post photo )
+        //userIdA = str.substr(0,12); // goes to string's position 0 and returns the next 12 chars (it counts the 0 too)
+        userIdA = input[0];
+        //photoId = str.substr(13,10); // same thing but starts from position 13 and gets the next 10 elements ( Size of PhotoID ).
+        photoId = input[1];
+        //timeStamp= str.substr(str.size()-10, str.size()); // knowing that all other TimeStamp has the same size, return the 10 last elements
+        timeStamp = input[3];
         cout << "\nEvent 1 - (Post Photo)\n" 
                 << "  userId : " << userIdA << '\n' 
                 << "  photoId : " << photoId << '\n'
                 << "  TimeStamp : "<< timeStamp << '\n';
         // Interpreting as if not 0 and 1 event, then its 100% event 2
       }else{    // this event the size of its elements is equal to event 1
-        userIdA = str.substr(0,12);
-        photoId = str.substr(13,10);
-        timeStamp= str.substr(str.size()-10, str.size());
+        //userIdA = str.substr(0,12);
+        userIdA = input[0];
+        //photoId = str.substr(13,10);
+        photoId = input[1];
+        //timeStamp= str.substr(str.size()-10, str.size());
+        timeStamp = input[3];
         cout << "\nEvent 2 - (Photo Faved)\n" 
                 << "  userId : " << userIdA << '\n' 
                 << "  photoId : " << photoId << '\n'
                 << "  TimeStamp : "<< timeStamp << '\n';
       }
+    getline (cin, str);  
     }  
-    getline (cin, str);
-  }
-  
   return 0;
 }
 
