@@ -15,18 +15,19 @@
   using namespace std;
 
   /**
-    * This function is called to split the string line in each colon (',')
+    * This function is called to split the string line at each occurence of certain character
     * @param string str - the input line to be splitted
+    * @param char c - the paramether to split the string
     * @return returns an array of string
     * Complexity O(n)
     */
 
-  string* split(string str){
+  string* split(string str, char c){
     // Initializing the array with 4 slots
     string* answer = new string[4];
     int pos=0;
     for(int i = 0; i < str.size(); i++){
-      if(str.at(i) != ','){
+      if(str.at(i) != c){
         answer[pos] = answer[pos] + str.at(i);
       }else{
         pos++;
@@ -45,8 +46,10 @@ int main ()
   string base="10000126@N02,4074743559,2,1324475489";  //CASO 2
 
     //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
+
+    // Testing Split Function \\
 /** /
-  string* teste = split(base);
+  string* teste = split(base, ',');
   cout << teste[0] <<'\n'
        << teste[1] <<'\n'
        << teste[2] <<'\n'
