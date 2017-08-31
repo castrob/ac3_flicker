@@ -11,7 +11,7 @@
   // Imports
   #include <iostream>
   #include <string>
-
+  using namespace std;
 int main ()
 {
 
@@ -19,15 +19,15 @@ int main ()
 
   //std::string base="10000137@N04,10231841@N06,0,0";         //CASO 0
   //std::string base="99997777@N00,6879369765,1,1329283214";    //CASO 1
-  std::string base="10000126@N02,4074743559,2,1324475489";  //CASO 2
+  string base="10000126@N02,4074743559,2,1324475489";  //CASO 2
   
   // Declaring elements
-  std::string str=base;  // Declaring str as base string
-  std::string::size_type sz; // alias for size_t
-  std::string userIdA;
-  std::string userIdB;
-  std::string photoId;
-  std::string timeStamp;
+  string str=base;  // Declaring str as base string
+  string::size_type sz; // alias for size_t
+  string userIdA;
+  string userIdB;
+  string photoId;
+  string timeStamp;
   int posf; // position for timestamp (used to print on test)
   int pos;
   int pos1;
@@ -47,7 +47,7 @@ int main ()
     userIdA = str.substr(0,12); // goes to string's position 0 and returns the next 12 chars (it counts the 0 too)
     userIdB = str.substr(13,12); // same thing but starts from position 13.
     timeStamp= str.substr(str.size()-1, str.size()); // Knowing that every event 0 the time stamp is 0, just return the last element
-    std::cout << "\nEvent 0 - (Friendship)\n" 
+    cout << "\nEvent 0 - (Friendship)\n" 
               << "  userIdA : " << userIdA << '\n' 
               << "  userIdB : " << userIdB << '\n'
               << "  TimeStamp : "<< timeStamp << '\n';
@@ -57,7 +57,7 @@ int main ()
       userIdA = str.substr(0,12); // goes to string's position 0 and returns the next 12 chars (it counts the 0 too)
       photoId = str.substr(13,10); // same thing but starts from position 13 and gets the next 10 elements ( Size of PhotoID ).
       timeStamp= str.substr(str.size()-10, str.size()); // knowing that all other TimeStamp has the same size, return the 10 last elements
-      std::cout << "\nEvent 1 - (Post Photo)\n" 
+      cout << "\nEvent 1 - (Post Photo)\n" 
               << "  userId : " << userIdA << '\n' 
               << "  photoId : " << photoId << '\n'
               << "  TimeStamp : "<< timeStamp << '\n';
@@ -66,7 +66,7 @@ int main ()
       userIdA = str.substr(0,12);
       photoId = str.substr(13,10);
       timeStamp= str.substr(str.size()-10, str.size());
-      std::cout << "\nEvent 2 - (Photo Faved)\n" 
+      cout << "\nEvent 2 - (Photo Faved)\n" 
               << "  userId : " << userIdA << '\n' 
               << "  photoId : " << photoId << '\n'
               << "  TimeStamp : "<< timeStamp << '\n';
