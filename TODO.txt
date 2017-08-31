@@ -4,18 +4,34 @@ Igor Machado Seixas
 João Paulo de Castro
 
 
-1o - fazer o parse de cada evento
-   Evento 0 - (Amizade)
-   		UserA : UserID ( Existe/nao existe )
-   		UserB : UserID ( Existe/nao existe )
-   		TimeStamp : Number
+|1o - fazer o parse de cada evento - DONE(castrob)
+|   Evento 0 - (Amizade)
+|   		UserA : UserID ( Existe/nao existe )
+|   		UserB : UserID ( Existe/nao existe )
+|   		TimeStamp : Number
+|
+|   Evento 1 - (Upload)
+|		UserA : UserID ( Existe/nao existe )
+|   		Foto : photoId
+|   		TimeStamp : DateOfUpload
+|
+|   Evento 2 - (Faved)
+|   		UserA : UserID ( Existe/nao existe )
+|   		Foto : photoId
+|   		TimeStamp : DateOfFaved
 
-   Evento 1 - (Upload)
-		UserA : UserID ( Existe/nao existe )
-   		Foto : photoId
-   		TimeStamp : DateOfUpload
 
-   Evento 2 - (Faved)
-   		UserA : UserID ( Existe/nao existe )
-   		Foto : photoId
-   		TimeStamp : DateOfFaved
+ 2o - Fazer leitura da entrada padrao ou ler de um arquivo existente
+      colocar a string lida para encaixar na base do parse de eventos feito anteiormente.
+
+
+
+
+
+
+
+
+LINKS_UTEIS:
+   Programacao C++ : http://www.cplusplus.com/reference/string/string/substr/ - - Documentacao c++ (substr)
+                     http://www.inf.pucrs.br/~pinho/PRGSWB/OO/oocpp.html    - - - Classes e Construtores
+                     https://gist.github.com/ProgDan/899906                 - - - Implementacao de Lista
