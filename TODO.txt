@@ -4,7 +4,7 @@ Igor Machado Seixas
 João Paulo de Castro
 
 
-|1o - fazer o parse de cada evento - DONE(castrob)
+|1o - fazer o parse de cada evento - DONE(castrob) 30/08
 |   Evento 0 - (Amizade)
 |   		UserA : UserID ( Existe/nao existe )
 |   		UserB : UserID ( Existe/nao existe )
@@ -21,8 +21,17 @@ João Paulo de Castro
 |   		TimeStamp : DateOfFaved
 
 
- 2o - Fazer leitura da entrada padrao ou ler de um arquivo existente
-      colocar a string lida para encaixar na base do parse de eventos feito anteiormente.
+| 2o - Fazer leitura da entrada padrao ou ler de um arquivo existente - DONE(castrob) 31/08
+|      colocar a string lida para encaixar na base do parse de eventos feito anteiormente.
+
+
+| 3o - Remover @N de userId e encontrar maneira de armazenar sem ser em string - DONE(castrob) 01/09
+|      REMOVIDO @N e Armazenado em Double
+
+ 4o - Passar de Double para Float ? Melhor ? Pior ? 
+ 
+ 5o - Estruturar Objetos
+
 
 
 
