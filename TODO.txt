@@ -34,7 +34,7 @@ João Paulo de Castro
 
  6o - Construir Classe Graph // DONE(igormseixas) 02/09
  
- 6o - Estruturar Classe Graph
+ 6o - Estruturar Classe Graph // DONE(igormseixas) 02/09
 
 
 
