@@ -12,6 +12,7 @@
   
   // Imports
   #include <iostream>
+  #include "graph.h"
   //#include <string> // Not Used
   using namespace std;
 
@@ -76,6 +77,7 @@ int main ()
     //////////////////////// END OF TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
   
   // Declaring elements
+  graph g;
   string str;  // Declaring str as base string
   string* input; // Declaring the String Array
   string::size_type sz; // alias for size_t
@@ -98,32 +100,34 @@ int main ()
     if ( input[2].at(0) == '0' ){ 
       userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
       userIdB = clearUserID(input[1]); // clearUserId (String) remove the @N Characters and returns the String long value
-      timeStamp = stod(input[3]); // Converts the String to a double value
-      cout << "\nEvent 0 - (Friendship)\n" 
-                << "  userIdA : " << userIdA << '\n' 
-                << "  userIdB : " << userIdB << '\n'
-                << "  TimeStamp : "<< timeStamp << '\n';
+      g.addEdge(userIdA,userIdB);
+      //timeStamp = stod(input[3]); // Converts the String to a double value
+      // cout << "\nEvent 0 - (Friendship)\n" 
+      //           << "  userIdA : " << userIdA << '\n' 
+      //           << "  userIdB : " << userIdB << '\n'
+      //           << "  TimeStamp : "<< timeStamp << '\n';
     // Event 1 - (Post)
     }else if (input[2].at(0) == '1'){  
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
         photoId = stod(input[1]); // Converts the String to a double value
         timeStamp = stod(input[3]); // Converts the String to a double value
-        cout << "\nEvent 1 - (Post Photo)\n" 
-                << "  userId : " << userIdA << '\n' 
-                << "  photoId : " << photoId << '\n'
-                << "  TimeStamp : "<< timeStamp << '\n';
+        // cout << "\nEvent 1 - (Post Photo)\n" 
+        //         << "  userId : " << userIdA << '\n' 
+        //         << "  photoId : " << photoId << '\n'
+        //         << "  TimeStamp : "<< timeStamp << '\n';
       // Event 2 - (Faved)                
       }else{
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
         photoId = stod(input[1]); // Converts the String to a double value
         timeStamp = stod(input[3]); // Converts the String to a double value
-        cout << "\nEvent 2 - (Photo Faved)\n" 
-                << "  userId : " << userIdA << '\n' 
-                << "  photoId : " << photoId << '\n'
-                << "  TimeStamp : "<< timeStamp << '\n';
+        // cout << "\nEvent 2 - (Photo Faved)\n" 
+        //         << "  userId : " << userIdA << '\n' 
+        //         << "  photoId : " << photoId << '\n'
+        //         << "  TimeStamp : "<< timeStamp << '\n';
       }
     getline (cin, str);
     }
+  g.printGraph();
   return 0;
 }
 
