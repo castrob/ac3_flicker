@@ -44,16 +44,16 @@
        int pos1, pos2;
        
        // Verificatins if there is User u1
-       pos1 = binaryFind(u1);
+       pos1 = this->binaryFind(u1);
        if ( pos1 == -1 ) {   // Find and check position of first user
          pos1 = n;  // Update pos1 situation
-         addVertex(u1);
+         this->addVertex(u1);
        }       
        // Verificatins if there is User u2
-       pos2 = binaryFind(u2);
+       pos2 = this->binaryFind(u2);
        if ( pos2 == -1 ) { // Find and check position of second user
          pos2 = n; // Update pos2 situation
-         addVertex(u2);
+         this->addVertex(u2);
        }     
        // Create Edge between User u1 and User u2
        usergraph[pos1].push_back(u2);
