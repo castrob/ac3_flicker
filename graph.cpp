@@ -17,7 +17,7 @@
   //#include <string> // Not Used
   using namespace std;
   
-  #define ARRAY_SIZE 200
+  #define ARRAY_SIZE 200  // Define the length of the study group
   
   class graph {
    public: 
@@ -41,14 +41,25 @@
      * @param u1 - User to be added
      */
      void addEdge ( double u1, double u2 ) {
-       int pos;
-       // Find position of first user
-          pos = binaryFind(u1);
-          usergraph[pos].push_back(u2);
-       // Find position of last user
-          pos = binaryFind(u2);
-          usergraph[pos].push_back(u1);         
-          //it = find(usergraph[0].begin( ), usergraph[0].end( ), 2 );
+       int pos1, pos2;
+       
+       // Verificatins if there is User u1
+       pos1 = binaryFind(u1);
+       if ( pos1 == -1 ) {   // Find and check position of first user
+         pos1 = n;  // Update pos1 situation
+         addVertex(u1);
+       }       
+       // Verificatins if there is User u2
+       pos2 = binaryFind(u2);
+       if ( pos2 == -1 ) { // Find and check position of second user
+         pos2 = n; // Update pos2 situation
+         addVertex(u2);
+       }     
+       // Create Edge between User u1 and User u2
+       usergraph[pos1].push_back(u2);
+       usergraph[pos2].push_back(u1); 
+       
+       //it = find(usergraph[0].begin( ), usergraph[0].end( ), 2 );
      }
      
    /**
@@ -107,14 +118,15 @@ int main ()
   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
     
   graph g;
-    if (g.binaryFind(1) == -1) {
-    g.addVertex(1);
-  }
-    if (g.binaryFind(2) == -1) {
-    g.addVertex(2);
-  }
   
   g.addEdge(1,2);
+  /*g.addEdge(1,123.312);
+  g.addEdge(1,4);
+  g.addEdge(33.33,212);
+  g.addEdge(32,2);
+  g.addEdge(32,1);
+  g.addEdge(32,123123);
+  g.addEdge(1,20);*/
 
   g.printGraph( );
 

@@ -28,7 +28,7 @@ João Paulo de Castro
 | 3o - Remover @N de userId e encontrar maneira de armazenar sem ser em string - DONE(castrob) 01/09
 |      REMOVIDO @N e Armazenado em Double
 
- 4o - Passar de Double para Float ? Melhor ? Pior ? 
+ 4o - Passar de Double (DONE)igormseixas/castrob 02/09
  
  5o - Estruturar Objetos
 
