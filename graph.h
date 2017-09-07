@@ -151,56 +151,75 @@
             if(*i == idFriend) {
 
               nivelZero++;
+              i = usergraph[n0].end();
 
-            }
-            int n1 = sequencialSearch(*i);
-            if( n1 != -1) {
+            }else{
+              int n1 = sequencialSearch(*i);
+              if( n1 != -1) {
 
-              for( list<double>::iterator j = usergraph[n1].begin( ); j != usergraph[n1].end( ); j++ ) {
+                for( list<double>::iterator j = usergraph[n1].begin( ); j != usergraph[n1].end( ); j++ ) {
 
-                if(*j == idFriend) {
+                  if(*j == idFriend) {
 
-                  nivelPrimeiro++;
+                    nivelPrimeiro++;
+                    j = usergraph[n1].end();
+                    i = usergraph[n0].end();
 
-                }
-                int n2 = sequencialSearch(*j);
-                if( n2 != -1){
+                  }else{
+                    int n2 = sequencialSearch(*j);
+                    if( n2 != -1){
 
-                  for( list<double>::iterator k = usergraph[n2].begin( ); k != usergraph[n2].end( ); k++ ) {
+                      for( list<double>::iterator k = usergraph[n2].begin( ); k != usergraph[n2].end( ); k++ ) {
 
-                    if(*k == idFriend) {
+                        if(*k == idFriend) {
 
-                      nivelSegundo++;
+                          nivelSegundo++;
+                          k = usergraph[n2].end();
+                          j = usergraph[n1].end();
+                          i = usergraph[n0].end();
 
-                    }
-                    int n3 = sequencialSearch(*k);
+                        }else{
+                          int n3 = sequencialSearch(*k);
 
-                    if( n3 != -1 ){
+                          if( n3 != -1 ){
 
-                      for( list<double>::iterator l = usergraph[n3].begin( ); l != usergraph[n3].end( ); l++ ) {
+                            for( list<double>::iterator l = usergraph[n3].begin( ); l != usergraph[n3].end( ); l++ ) {
 
-                        if(*l == idFriend) {
+                              if(*l == idFriend) {
 
-                          nivelTerceiro++;
+                                nivelTerceiro++;
+                                l = usergraph[n3].end();
+                                k = usergraph[n2].end();
+                                j = usergraph[n1].end();
+                                i = usergraph[n0].end();
 
-                        }
-                        int n4 = sequencialSearch(*l);
+                              }else{
+                                int n4 = sequencialSearch(*l);
 
-                          for( list<double>::iterator m = usergraph[n4].begin( ); m != usergraph[n4].end( ); m++ ) {
+                                  for( list<double>::iterator m = usergraph[n4].begin( ); m != usergraph[n4].end( ); m++ ) {
 
-                            if(*m == idFriend) {
+                                    if(*m == idFriend) {
 
-                              nivelQuarto++;
+                                      nivelQuarto++;
+                                      m = usergraph[n4].end();
+                                      l = usergraph[n3].end();
+                                      k = usergraph[n2].end();
+                                      j = usergraph[n1].end();
+                                      i = usergraph[n0].end();
 
-                            }
-                          }
-                        } // for of
-                    } // for if
-                  } // third of
-                } // third if
-              } // second of
-            } // second if
-         } // end first of
+                                    }
+                                  }
+                                } // for of
+                              } // for else
+                          } // for if
+                        } // third of
+                      } //  trird else
+                    } // third if
+                  } // second of
+                } // second else
+              } // second if
+           } // end first of
+         } //end else
        } // end first if
      }// end method
   }; // end class graph
