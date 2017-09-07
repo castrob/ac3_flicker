@@ -29,10 +29,10 @@
     // Initializing the array with 4 slots
     string* answer = new string[4];
     int pos=0;
-    answer[0] = "1";
-    answer[1] = "1";
-    answer[2] = "1";
-    answer[3] = "1";
+    // answer[0] = "1";
+    // answer[1] = "1";
+    // answer[2] = "1";
+    // answer[3] = "1";
     for(int i = 0; i < str.size(); i++){
       if(str.at(i) != c){
         answer[pos] = answer[pos] + str.at(i);
@@ -91,6 +91,7 @@ int main ()
   double userIdA; // Change from String to Int
   double userIdB; // Change from String to Int
   double photoId; // Change from String to Int
+  double idOwner;
   double timeStamp; // Change from String to Int
 
  
@@ -108,6 +109,7 @@ int main ()
       userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
       userIdB = clearUserID(input[1]); // clearUserId (String) remove the @N Characters and returns the String long value
       g.addEdge(userIdA,userIdB);
+      cout << "HERE A" << '\n';
       //timeStamp = stod(input[3]); // Converts the String to a double value
       // cout << "\nEvent 0 - (Friendship)\n" 
       //           << "  userIdA : " << userIdA << '\n' 
@@ -120,8 +122,9 @@ int main ()
         timeStamp = stod(input[3]); // Converts the String to a double value
         g.addVertex(userIdA);
         d.addPhoto(photoId,userIdA);
+        cout << "HERE B" << '\n';
         // cout << "\nEvent 1 - (Post Photo)\n" 
-        //         << "  userId : " << userIdA << '\n' 
+        //         << "  userId : " s<< userIdA << '\n' 
         //         << "  photoId : " << photoId << '\n'
         //         << "  TimeStamp : "<< timeStamp << '\n';
       // Event 2 - (Faved)                
@@ -129,6 +132,11 @@ int main ()
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
         photoId = stod(input[1]); // Converts the String to a double value
         g.addVertex(userIdA);
+        cout << "HERE C" << '\n';
+        idOwner = d.findOwner(photoId);
+        cout << "HERE D" << '\n';
+        g.largeSearch(idOwner,userIdA);
+        cout << "HERE A" << '\n';
         timeStamp = stod(input[3]); // Converts the String to a double value
         // cout << "\nEvent 2 - (Photo Faved)\n" 
         //         << "  userId : " << userIdA << '\n' 
@@ -139,6 +147,11 @@ int main ()
     }
   g.printGraph();
   d.printPhotos();
+  cout << g.nivelZero << '\n'
+  	   << g.nivelPrimeiro << '\n'
+  	   << g.nivelSegundo << '\n'
+  	   << g.nivelTerceiro << '\n'
+  	   << g.nivelQuarto << '\n';
   return 0;
 }
 
