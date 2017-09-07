@@ -141,60 +141,68 @@
          cout << '\n';
        } // end for
      }
+
+
      void largeSearch(double idOwner , double idFriend) {
+
        int n0 = sequencialSearch(idOwner);
-       for ( list<double>::iterator i = usergraph[n0].begin( ); i != usergraph[n0].end( ); i++ ) {
-          if(*i == idFriend) {
+       if(n0 != -1 ) {
+         for ( list<double>::iterator i = usergraph[n0].begin( ); i != usergraph[n0].end( ); i++ ) {
+            if(*i == idFriend) {
 
-            nivelZero++;
-
-          }
-          int n1 = sequencialSearch(*i);
-          for( list<double>::iterator j = usergraph[n1].begin( ); j != usergraph[n1].end( ); j++ ) {
-
-            if(*j == idFriend) {
-
-              nivelPrimeiro++;
+              nivelZero++;
 
             }
-            int n2 = sequencialSearch(*j);
+            int n1 = sequencialSearch(*i);
+            if( n1 != -1) {
 
-            for( list<double>::iterator k = usergraph[n2].begin( ); k != usergraph[n2].end( ); k++ ) {
+              for( list<double>::iterator j = usergraph[n1].begin( ); j != usergraph[n1].end( ); j++ ) {
 
-              if(*k == idFriend) {
+                if(*j == idFriend) {
 
-                nivelSegundo++;
-
-              }
-              int n3 = sequencialSearch(*k);
-
-
-
-            for( list<double>::iterator l = usergraph[n3].begin( ); l != usergraph[n3].end( ); l++ ) {
-
-              if(*l == idFriend) {
-
-                nivelTerceiro++;
-
-              }
-              int n4 = sequencialSearch(*l);
-
-
-
-                for( list<double>::iterator m = usergraph[n4].begin( ); m != usergraph[n4].end( ); m++ ) {
-
-                  if(*m == idFriend) {
-
-                    nivelQuarto++;
-
-                  }
+                  nivelPrimeiro++;
 
                 }
-              }
-            }
-          }
-       }
-     }
+                int n2 = sequencialSearch(*j);
+                if( n2 != -1){
+
+                  for( list<double>::iterator k = usergraph[n2].begin( ); k != usergraph[n2].end( ); k++ ) {
+
+                    if(*k == idFriend) {
+
+                      nivelSegundo++;
+
+                    }
+                    int n3 = sequencialSearch(*k);
+
+                    if( n3 != -1 ){
+
+                      for( list<double>::iterator l = usergraph[n3].begin( ); l != usergraph[n3].end( ); l++ ) {
+
+                        if(*l == idFriend) {
+
+                          nivelTerceiro++;
+
+                        }
+                        int n4 = sequencialSearch(*l);
+
+                          for( list<double>::iterator m = usergraph[n4].begin( ); m != usergraph[n4].end( ); m++ ) {
+
+                            if(*m == idFriend) {
+
+                              nivelQuarto++;
+
+                            }
+                          }
+                        } // for of
+                    } // for if
+                  } // third of
+                } // third if
+              } // second of
+            } // second if
+         } // end first of
+       } // end first if
+     }// end method
   }; // end class graph
 
 //   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
