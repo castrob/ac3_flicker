@@ -3,6 +3,7 @@
   * Trabalho Pratico 1 - Flicker Database
   * Integrantes: Igor Machado Seixas
   *              Joao Castro
+  *              Paulo Junio
   * Linguagem utilizada: C++
   * Recursos: <string> substr (int inicio, int quantidade) - Substring
   *           <string> find (String padrao) - "contains" retorna posicao do padrao se achar, se nao achar returna -1
@@ -22,7 +23,7 @@
   class graph {
    public: 
    // Atributes
-   list<double>* usergraph; // Vertex wich will cotain user id
+   list<double>* usergraph; // Vertex which will cotain user id
    list<double>::iterator it;
    int n;
    
@@ -43,14 +44,14 @@
      void addEdge ( double u1, double u2 ) {
        int pos1, pos2;
        
-       // Verificatins if there is User u1
-       pos1 = binaryFind(u1);
+       // Verificating if there is User u1
+       pos1 = SequencialSearch(u1);
        if ( pos1 == -1 ) {   // Find and check position of first user
          pos1 = n;  // Update pos1 situation
          addVertex(u1);
        }       
-       // Verificatins if there is User u2
-       pos2 = binaryFind(u2);
+       // Verificating if there is User u2
+       pos2 = SequencialSearch(u2);
        if ( pos2 == -1 ) { // Find and check position of second user
          pos2 = n; // Update pos2 situation
          addVertex(u2);
@@ -67,14 +68,18 @@
      * @param v - Vertex to be added
      */
      void addVertex (double v) {
+      int pos;
+      pos = SequencialSearch(v);
+      if (pos == -1){
        usergraph[n].push_front(v);
        n++;
+      }
      }
      
    
    /**
      * Binary Find
-     * @param u - User wich will be search
+     * @param u - User which will be search
      */
      int binaryFind ( double u ) {
        int left = 0, right = n -1, middle;
@@ -97,6 +102,21 @@
        
        return ans;
      }
+
+    /**
+      * Sequencial Search
+      * @param u - user which will be search
+      */
+
+     int SequencialSearch(double u){
+      int answer = -1;
+      for(int i = 0; i < n; i++){
+        if( u == *usergraph[i].begin())
+          answer = i;
+      }
+      return answer;
+     }
+
      
    /**
      * Print Graph

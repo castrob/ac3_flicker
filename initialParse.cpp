@@ -3,6 +3,7 @@
   * Trabalho Pratico 1 - Flicker Database
   * Integrantes: Igor Machado Seixas
   *              Joao Castro
+  *              Paulo Junio
   * Linguagem utilizada: C++
   * Recursos: <string> substr (int inicio, int quantidade) - Substring
   *           <string> find (String padrao) - "contains" retorna posicao do padrao se achar, se nao achar returna -1
@@ -13,6 +14,7 @@
   // Imports
   #include <iostream>
   #include "graph.h"
+  #include "dictionary.h"
   //#include <string> // Not Used
   using namespace std;
 
@@ -27,6 +29,10 @@
     // Initializing the array with 4 slots
     string* answer = new string[4];
     int pos=0;
+    answer[0] = "1";
+    answer[1] = "1";
+    answer[2] = "1";
+    answer[3] = "1";
     for(int i = 0; i < str.size(); i++){
       if(str.at(i) != c){
         answer[pos] = answer[pos] + str.at(i);
@@ -44,7 +50,7 @@
     * Complexity O(n)
     */
   double clearUserID(string str){
-    string tmp;
+    string tmp = "0";
     for(int i = 0; i < str.size(); i++){
       if (str.at(i) != '@' && str.at(i) != 'N')
         tmp = tmp + str.at(i);
@@ -78,6 +84,7 @@ int main ()
   
   // Declaring elements
   graph g;
+  dictionary d;
   string str;  // Declaring str as base string
   string* input; // Declaring the String Array
   string::size_type sz; // alias for size_t
@@ -111,6 +118,8 @@ int main ()
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
         photoId = stod(input[1]); // Converts the String to a double value
         timeStamp = stod(input[3]); // Converts the String to a double value
+        g.addVertex(userIdA);
+        d.addPhoto(photoId,userIdA);
         // cout << "\nEvent 1 - (Post Photo)\n" 
         //         << "  userId : " << userIdA << '\n' 
         //         << "  photoId : " << photoId << '\n'
@@ -119,6 +128,7 @@ int main ()
       }else{
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
         photoId = stod(input[1]); // Converts the String to a double value
+        g.addVertex(userIdA);
         timeStamp = stod(input[3]); // Converts the String to a double value
         // cout << "\nEvent 2 - (Photo Faved)\n" 
         //         << "  userId : " << userIdA << '\n' 
@@ -128,6 +138,7 @@ int main ()
     getline (cin, str);
     }
   g.printGraph();
+  d.printPhotos();
   return 0;
 }
 
