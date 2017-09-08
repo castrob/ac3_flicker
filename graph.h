@@ -81,6 +81,7 @@
      void addVertex (double v) {
       int pos;
       pos = sequencialSearch(v);
+      
       if (pos == -1){
        usergraph[n].push_front(v);
        n++;
@@ -122,8 +123,10 @@
      int sequencialSearch(double u){
       int answer = -1;
       for(int i = 0; i < n; i++){
-        if( u == *usergraph[i].begin())
+        if( u == *usergraph[i].begin()){
           answer = i;
+          i = n;
+        }
       }
       return answer;
      }
@@ -147,65 +150,51 @@
 
        int n0 = sequencialSearch(idOwner);
        if(n0 != -1 ) {
-         for ( list<double>::iterator i = usergraph[n0].begin( ); i != usergraph[n0].end( ); i++ ) {
+         for ( list<double>::iterator i = next(usergraph[n0].begin( ),1); i != usergraph[n0].end( ); i++ ) {
             if(*i == idFriend) {
+           cout << "LALA i" << " " <<idFriend << '\n';
 
               nivelZero++;
-              i = usergraph[n0].end();
 
             }else{
               int n1 = sequencialSearch(*i);
               if( n1 != -1) {
 
-                for( list<double>::iterator j = usergraph[n1].begin( ); j != usergraph[n1].end( ); j++ ) {
-
+                for( list<double>::iterator j = next(usergraph[n1].begin( ),1); j != usergraph[n1].end( ); j++ ) {
                   if(*j == idFriend) {
+                  cout << "LALA j" << *j << " " << idFriend << '\n';
 
                     nivelPrimeiro++;
-                    j = usergraph[n1].end();
-                    i = usergraph[n0].end();
 
                   }else{
                     int n2 = sequencialSearch(*j);
                     if( n2 != -1){
 
-                      for( list<double>::iterator k = usergraph[n2].begin( ); k != usergraph[n2].end( ); k++ ) {
-
+                      for( list<double>::iterator k = next(usergraph[n2].begin( ),1); k != usergraph[n2].end( ); k++ ) {
                         if(*k == idFriend) {
+                        cout << "LALA k" << *k << " " << idFriend << '\n';
 
                           nivelSegundo++;
-                          k = usergraph[n2].end();
-                          j = usergraph[n1].end();
-                          i = usergraph[n0].end();
 
                         }else{
                           int n3 = sequencialSearch(*k);
 
                           if( n3 != -1 ){
 
-                            for( list<double>::iterator l = usergraph[n3].begin( ); l != usergraph[n3].end( ); l++ ) {
-
+                            for( list<double>::iterator l = next(usergraph[n3].begin( ),1); l != usergraph[n3].end( ); l++ ) {
                               if(*l == idFriend) {
+                              cout << "LALA l" << *l << " " << idFriend << '\n';
 
                                 nivelTerceiro++;
-                                l = usergraph[n3].end();
-                                k = usergraph[n2].end();
-                                j = usergraph[n1].end();
-                                i = usergraph[n0].end();
 
                               }else{
                                 int n4 = sequencialSearch(*l);
 
-                                  for( list<double>::iterator m = usergraph[n4].begin( ); m != usergraph[n4].end( ); m++ ) {
-
+                                  for( list<double>::iterator m = next(usergraph[n4].begin( ),1); m != usergraph[n4].end( ); m++ ) {
                                     if(*m == idFriend) {
+                                    cout << "LALA m" << *m << " " <<  idFriend << '\n';
 
                                       nivelQuarto++;
-                                      m = usergraph[n4].end();
-                                      l = usergraph[n3].end();
-                                      k = usergraph[n2].end();
-                                      j = usergraph[n1].end();
-                                      i = usergraph[n0].end();
 
                                     }
                                   }
