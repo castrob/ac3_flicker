@@ -142,11 +142,11 @@ int main ()
     }
   g.printGraph();
   d.printPhotos();
-  cout << "0: " << g.nivelZero << '\n'
-  	   << "1: " << g.nivelPrimeiro << '\n'
-  	   << "2: " << g.nivelSegundo << '\n'
-  	   << "3: " << g.nivelTerceiro << '\n'
-  	   << "4: " << g.nivelQuarto << '\n';
+  cout << "0: " << g.levelZero << '\n'
+  	   << "1: " << g.levelOne << '\n'
+  	   << "2: " << g.levelTwo << '\n'
+  	   << "3: " << g.levelThree << '\n'
+  	   << "4: " << g.levelFour << '\n';
   return 0;
 }
 

@@ -23,11 +23,11 @@
   class graph {
    public:
    // Atributes
-   int nivelZero;
-   int nivelPrimeiro;
-   int nivelSegundo;
-   int nivelTerceiro;
-   int nivelQuarto;
+   int levelZero;
+   int levelOne;
+   int levelTwo;
+   int levelThree;
+   int levelFour;
 
    list<double>* usergraph; // Vertex which will cotain user id
    list<double>::iterator it;
@@ -40,11 +40,11 @@
      graph ( ) {
       usergraph = new list<double> [ARRAY_SIZE];
       n = 0;
-      nivelZero = 0;
-      nivelQuarto = 0;
-      nivelSegundo = 0;
-      nivelTerceiro = 0;
-      nivelPrimeiro = 0;
+      levelZero = 0;
+      levelFour = 0;
+      levelTwo = 0;
+      levelThree = 0;
+      levelOne = 0;
      }
 
    /**
@@ -145,7 +145,7 @@
        } // end for
      }
 
-
+/** /
      void largeSearch(double idOwner , double idFriend) {
 
        int n0 = sequencialSearch(idOwner);
@@ -154,7 +154,7 @@
             if(*i == idFriend) {
            cout << "LALA i" << " " <<idFriend << '\n';
 
-              nivelZero++;
+              levelZero++;
 
             }else{
               int n1 = sequencialSearch(*i);
@@ -164,7 +164,7 @@
                   if(*j == idFriend) {
                   cout << "LALA j" << *j << " " << idFriend << '\n';
 
-                    nivelPrimeiro++;
+                    levelOne++;
 
                   }else{
                     int n2 = sequencialSearch(*j);
@@ -174,7 +174,7 @@
                         if(*k == idFriend) {
                         cout << "LALA k" << *k << " " << idFriend << '\n';
 
-                          nivelSegundo++;
+                          levelTwo++;
 
                         }else{
                           int n3 = sequencialSearch(*k);
@@ -185,7 +185,7 @@
                               if(*l == idFriend) {
                               cout << "LALA l" << *l << " " << idFriend << '\n';
 
-                                nivelTerceiro++;
+                                levelThree++;
 
                               }else{
                                 int n4 = sequencialSearch(*l);
@@ -194,7 +194,7 @@
                                     if(*m == idFriend) {
                                     cout << "LALA m" << *m << " " <<  idFriend << '\n';
 
-                                      nivelQuarto++;
+                                      levelFour++;
 
                                     }
                                   }
@@ -211,6 +211,78 @@
          } //end else
        } // end first if
      }// end method
+/**/
+
+   /**
+     * Graph Large Search to find the level of each person who liked a photo
+     * @param double idOwner - Photo Owner
+     * @param double idFriend - Person who liked
+     */
+
+  void largeSearch (double idOwner, double idFriend){
+    int pos, pos1, pos2, pos3, pos4;
+    list<double>::iterator i,j,k,l,m;
+    pos = sequencialSearch(idOwner); // get the Owner position if it exists
+    if (pos != -1) // test if Owner exist, if dont wont do anything
+    for( i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
+      if(*i == idFriend){
+        levelZero++;
+        i = usergraph[pos].end(); // stop first for iteration
+        j = usergraph[pos1].end(); // stop second for iteration
+        k = usergraph[pos2].end(); // stop thrid for iteration
+        l = usergraph[pos3].end(); // stop fourth for iteration
+        m = usergraph[pos4].end(); // stop fifth for iteration
+      }
+      pos1 = sequencialSearch(*i); // get each owner levelZero friend position to test if its a levelOne like
+      if(pos1 != -1) // test if exists the levelOne person
+      for( j = next(usergraph[pos1].begin(),1); j != usergraph[pos1].end(); j++){
+        if(*j == idFriend){ // if found
+          levelOne++;
+          i = usergraph[pos].end(); // stop first for iteration
+          j = usergraph[pos1].end(); // stop second for iteration
+          k = usergraph[pos2].end(); // stop thrid for iteration
+          l = usergraph[pos3].end(); // stop fourth for iteration
+          m = usergraph[pos4].end(); // stop fifth for iteration
+        }
+        pos2 = sequencialSearch(*j); //get each levelTwo owner friend position to test if its a levelTwo like
+        if(pos2 != -1) // test if exists the levelTwo person
+        for( k = next(usergraph[pos2].begin(),1); k != usergraph[pos2].end(); k++){
+          if(*k == idFriend){ // if found
+            levelTwo++;
+            i = usergraph[pos].end(); // stop first for iteration
+            j = usergraph[pos1].end(); // stop second for iteration
+            k = usergraph[pos2].end(); // stop thrid for iteration
+            l = usergraph[pos3].end(); // stop fourth for iteration
+            m = usergraph[pos4].end(); // stop fifth for iteration
+          }
+          pos3 = sequencialSearch(*k); // get each levelThree owner friend position to thest if its a levelThree like
+          if(pos3 != -1) // test is exisist the levelThree person
+          for( l = next(usergraph[pos3].begin(),1); l != usergraph[pos3].end(); l++){
+            if(*l == idFriend){// if found
+              levelThree++;
+              i = usergraph[pos].end(); // stop first for iteration
+              j = usergraph[pos1].end(); // stop second for iteration
+              k = usergraph[pos2].end(); // stop thrid for iteration
+              l = usergraph[pos3].end(); // stop fourth for iteration
+              m = usergraph[pos4].end(); // stop fifth for iteration
+            }
+            pos4 = sequencialSearch(*l); // get each levelFour owner friend position to test if its a levelFour like
+            if(pos4 != -1) // test if exsist the levelFour person
+            for( m = next(usergraph[pos4].begin(),1); m != usergraph[pos4].end(); m++){
+              if(*m == idFriend){ // if found
+                levelFour++;
+                i = usergraph[pos].end(); // stop first for iteration
+                j = usergraph[pos1].end(); // stop second for iteration
+                k = usergraph[pos2].end(); // stop thrid for iteration
+                l = usergraph[pos3].end(); // stop fourth for iteration
+                m = usergraph[pos4].end(); // stop fifth for iteration   
+              }
+            }
+          }
+        }
+      }
+    }// end for levelZero
+  }
   }; // end class graph
 
 //   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
