@@ -111,6 +111,129 @@
        } // end for
      }
 
+    /**
+      * Sequencial Search
+      * @param u - user which will be search
+      */
+
+     int sequencialSearch(double u){
+      int answer = -1;
+      for(int i = 0; i < n; i++){
+        if( u == *usergraph[i].begin()){
+          answer = i;
+          i = n;
+        }
+      }
+      return answer;
+     }
+/*
+void BFS(double u, double userfriend)
+{
+    // Mark all the vertices as not visited
+    int j = 0;
+    int s = sequencialSearch(u);
+    bool *visited = new bool[n];
+    int  *degree = new int[n];
+    for(int i = 0; i < n; i++) {
+        visited[i] = false;
+        degree[i] = 99999;
+        
+    } // end for
+ 
+    // Create a queue for BFS
+    list<int> queue;
+ 
+    // Mark the current node as visited and enqueue it
+    visited[s] = true;
+    degree[s] = -1;
+    queue.push_back(s);
+ 
+    // 'i' will be used to get all adjacent vertices of a vertex
+    list<double>::iterator i;
+ 
+    while(!queue.empty( ))
+    {
+        // Dequeue a vertex from queue and print it
+        s = queue.front();
+        cout << "Grau do o Vertice: " << u << " para o vertice: " << *usergraph[s].begin( ) << " e' de: " << degree[s] << '\n';
+        queue.pop_front( );
+ 
+        // Get all adjacent vertices of the dequeued vertex s
+        // If a adjacent has not been visited, then mark it visited
+        // and enqueue it
+        for(i = usergraph[s].begin( ); i != usergraph[s].end( ); ++i)
+        {
+          j = sequencialSearch(*i);
+            if(!visited[j])
+            {
+                visited[j] = true;
+                degree[j] = degree[s]+1;;
+                queue.push_back(j);
+            }
+        }
+    }
+}
+*/
+int BFS(double u, double userfriend)
+{
+    // Mark all the vertices as not visited
+    int j = 0;
+    int s = sequencialSearch(u);
+    bool *visited = new bool[n];
+    int  *degree = new int[n];
+    int  foundDegree = 999999;
+    for(int i = 0; i < n; i++) {
+        visited[i] = false;
+        degree[i] = 99999;
+        
+    } // end for
+ 
+    // Create a queue for BFS
+    list<int> queue;
+ 
+    // Mark the current node as visited and enqueue it
+    visited[s] = true;
+    degree[s] = -1;
+    queue.push_back(s);
+ 
+    // 'i' will be used to get all adjacent vertices of a vertex
+    list<double>::iterator i;
+ 
+    while(!queue.empty( ))
+    {
+        // Dequeue a vertex from queue and print it
+        s = queue.front( );
+        //cout << "Grau do o Vertice: " << u << " para o vertice: " << *usergraph[s].begin( ) << " e' de: " << degree[s] << '\n';
+        if ( *usergraph[s].begin( ) == userfriend ) {
+        	//cout << "Grau do o Vertice: " << u << " para o vertice: " << *usergraph[s].begin( ) << " e' de: " << degree[s] << '\n';
+        	foundDegree = degree[s];
+        	queue.clear( );
+        } else {
+        	queue.pop_front( );
+ 
+        	// Get all adjacent vertices of the dequeued vertex s
+        	// If a adjacent has not been visited, then mark it visited
+        	// and enqueue it
+        	i = usergraph[s].begin( );
+        	advance(i, 1);
+        	for(; i != usergraph[s].end( ); ++i)
+        	{
+
+         	 j = sequencialSearch(*i);
+            	if(!visited[j])
+            	{
+                	visited[j] = true;
+                	degree[j] = degree[s]+1;;
+                	queue.push_back(j);
+            	}
+        	} // end for
+        
+        } // end else
+    }
+    
+  return foundDegree;
+} // end BFS
+
   }; // end class graph
 
 int main ()
@@ -120,15 +243,16 @@ int main ()
   graph g;
 
   g.addEdge(1,2);
-  /*g.addEdge(1,123.312);
-  g.addEdge(1,4);
-  g.addEdge(33.33,212);
-  g.addEdge(32,2);
-  g.addEdge(32,1);
-  g.addEdge(32,123123);
-  g.addEdge(1,20);*/
-
+  g.addEdge(2,3);
+  g.addEdge(3,4);
+  
   g.printGraph( );
+  cout << "Distancia: " << g.BFS(1,4);
+  cout << '\n';
+  //g.BFS(3);
+  cout << '\n';
+  //int tmp = g.sequencialSearch(1233);
+  //cout << g.n << '\n';
 
   return 0;
 }
