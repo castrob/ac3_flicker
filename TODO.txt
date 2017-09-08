@@ -28,13 +28,19 @@ João Paulo de Castro
 | 3o - Remover @N de userId e encontrar maneira de armazenar sem ser em string - DONE(castrob) 01/09
 |      REMOVIDO @N e Armazenado em Double
 
- 4o - Passar de Double (DONE)igormseixas/castrob 02/09
+| 4o - Passar de Double (DONE)igormseixas/castrob 02/09
  
- 5o - Estruturar Objetos
+| 5o - Estruturar Objetos
 
- 6o - Construir Classe Graph // DONE(igormseixas) 02/09
+| 6o - Construir Classe Graph // DONE(igormseixas) 02/09
  
- 6o - Estruturar Classe Graph // DONE(igormseixas) 02/09
+| 6o - Estruturar Classe Graph // DONE(igormseixas) 02/09
+
+ 7o - Implementar busca em largura 
+
+ 8o - Paralelizar 
+
+ Obs: Paulo recriei o seu metodo para tentar entender ele, e continuou dando o mesmo problema, acho que ele deveria testar primeiro na lista do dono se a pessoa é amiga dele antes de ir testando todas as primeiras posicoes, fazendo isso para cada vez que ele desce na lista. entao criei outro metodo que testa se esta na lista se nao estiver vai pro nivel de baixo, continuou dando um problema semelhante, entao criei um vetor de 5 posicoes cada uma representando um nivel de like durante a pesquisa, quando encontra a pessoa adiciona 1 para a posicao do array correspondente ao nivel, ao terminar a busca eu encontro a menor posicao que tem 1. é uma gambiarra, porq estou com sono e cansado, mas fiz porq acredito que pode ajudar voce e o igor a pensar em algo que nao seja uma gambiarra que faca a mesma coisa, ou ate mesmo uma funcao recursiva se for o caso. qualquer coisa te respondo quando acordar. abs
 
 
 
