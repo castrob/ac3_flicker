@@ -29,10 +29,6 @@
     // Initializing the array with 4 slots
     string* answer = new string[4];
     int pos=0;
-    // answer[0] = "1";
-    // answer[1] = "1";
-    // answer[2] = "1";
-    // answer[3] = "1";
     for(int i = 0; i < str.size(); i++){
       if(str.at(i) != c){
         answer[pos] = answer[pos] + str.at(i);
@@ -50,12 +46,15 @@
     * Complexity O(n)
     */
   double clearUserID(string str){
+    double answer = 0.0;
     string tmp = "0";
     for(int i = 0; i < str.size(); i++){
       if (str.at(i) != '@' && str.at(i) != 'N')
         tmp = tmp + str.at(i);
     }
-    return stod(tmp);
+    if(!tmp.empty())
+      answer = stod(tmp);
+    return answer;
   }
 
 
@@ -117,8 +116,10 @@ int main ()
         photoId = stod(input[1]); // Converts the String to a double value
         g.addVertex(userIdA);
         idOwner = d.findOwner(photoId);
-        if (idOwner != 0)
-        g.largeSearch(idOwner,userIdA);
+        if (idOwner != 0){
+          int l = g.BFS(idOwner,userIdA);
+          g.addLevel(l);
+        }
         timeStamp = stod(input[3]); // Converts the String to a double value
          // cout << "\nEvent 2 - (Photo Faved)\n" 
          //         << "  userId : " << userIdA << '\n' 

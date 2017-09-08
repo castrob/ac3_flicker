@@ -143,199 +143,103 @@
          cout << '\n';
        } // end for
      }
+  
+    /**
+      * Breadth first search  to find faved levels
+      * @param double u - Photo owner
+      * @param double userfriend - person who faved
+      * return int - level of like
+      */
 
-/** /
-     void largeSearch(double idOwner , double idFriend) {
-
-       int n0 = sequencialSearch(idOwner);
-       if(n0 != -1 ) {
-         for ( list<double>::iterator i = next(usergraph[n0].begin( ),1); i != usergraph[n0].end( ); i++ ) {
-            if(*i == idFriend) {
-           cout << "LALA i" << " " <<idFriend << '\n';
-
-              levelZero++;
-
-            }else{
-              int n1 = sequencialSearch(*i);
-              if( n1 != -1) {
-
-                for( list<double>::iterator j = next(usergraph[n1].begin( ),1); j != usergraph[n1].end( ); j++ ) {
-                  if(*j == idFriend) {
-                  cout << "LALA j" << *j << " " << idFriend << '\n';
-
-                    levelOne++;
-
-                  }else{
-                    int n2 = sequencialSearch(*j);
-                    if( n2 != -1){
-
-                      for( list<double>::iterator k = next(usergraph[n2].begin( ),1); k != usergraph[n2].end( ); k++ ) {
-                        if(*k == idFriend) {
-                        cout << "LALA k" << *k << " " << idFriend << '\n';
-
-                          levelTwo++;
-
-                        }else{
-                          int n3 = sequencialSearch(*k);
-
-                          if( n3 != -1 ){
-
-                            for( list<double>::iterator l = next(usergraph[n3].begin( ),1); l != usergraph[n3].end( ); l++ ) {
-                              if(*l == idFriend) {
-                              cout << "LALA l" << *l << " " << idFriend << '\n';
-
-                                levelThree++;
-
-                              }else{
-                                int n4 = sequencialSearch(*l);
-
-                                  for( list<double>::iterator m = next(usergraph[n4].begin( ),1); m != usergraph[n4].end( ); m++ ) {
-                                    if(*m == idFriend) {
-                                    cout << "LALA m" << *m << " " <<  idFriend << '\n';
-
-                                      levelFour++;
-
-                                    }
-                                  }
-                                } // for of
-                              } // for else
-                          } // for if
-                        } // third of
-                      } //  trird else
-                    } // third if
-                  } // second of
-                } // second else
-              } // second if
-           } // end first of
-         } //end else
-       } // end first if
-     }// end method
-/**/
-     int hasOnList(double p, int pos, double f){
-      int answer = -1;
+    int BFS(double u, double userfriend)
+    {
+      // Mark all the vertices as not visited
+      int j = 0;
+      int s = sequencialSearch(u);
+      bool *visited = new bool[n];
+      int  *degree = new int[n];
+      int  foundDegree = 999999;
+      for(int i = 0; i < n; i++) {
+          visited[i] = false;
+          degree[i] = 99999;
+        
+      } // end for
+ 
+      // Create a queue for BFS
+      list<int> queue;
+ 
+      // Mark the current node as visited and enqueue it
+      visited[s] = true;
+      degree[s] = -1;
+      queue.push_back(s);
+ 
+      // 'i' will be used to get all adjacent vertices of a vertex
       list<double>::iterator i;
-      for(i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
-        if(f == *i){
-          answer = 1;
-       }
-      }
-      return answer;
-     }
-   /**
-     * Graph Large Search to find the level of each person who liked a photo
-     * @param double idOwner - Photo Owner
-     * @param double idFriend - Person who liked
-     */
+ 
+      while(!queue.empty( ))
+      {
+        // Dequeue a vertex from queue and print it
+        s = queue.front( );
+        //cout << "Grau do o Vertice: " << u << " para o vertice: " << *usergraph[s].begin( ) << " e' de: " << degree[s] << '\n';
+        if ( *usergraph[s].begin( ) == userfriend ) {
+          //cout << "Grau do o Vertice: " << u << " para o vertice: " << *usergraph[s].begin( ) << " e' de: " << degree[s] << '\n';
+          foundDegree = degree[s];
+          queue.clear( );
+        } else {
+          queue.pop_front( );
+ 
+          // Get all adjacent vertices of the dequeued vertex s
+          // If a adjacent has not been visited, then mark it visited
+          // and enqueue it
+          i = usergraph[s].begin( );
+          advance(i, 1);
+          for(; i != usergraph[s].end( ); ++i)
+          {
 
-/** /
-  void largeSearch (double idOwner, double idFriend){
-    int pos, pos1, pos2, pos3, pos4;
-    list<double>::iterator i,j,k,l,m;
-    pos = sequencialSearch(idOwner); // get the Owner position if it exists
-    if (pos != -1) // test if Owner exist, if dont wont do anything
-    for(i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
-      if(*i == idFriend){
-        levelZero++;
+           j = sequencialSearch(*i);
+              if(!visited[j])
+              {
+                  visited[j] = true;
+                  degree[j] = degree[s]+1;;
+                  queue.push_back(j);
+              }
+          } // end for
+        
+        } // end else
       }
-      pos1 = sequencialSearch(*i); // get each owner levelZero friend position to test if its a levelOne like
-      if(pos1 != -1) // test if exists the levelOne person
-      for(j = next(usergraph[pos1].begin(),1); j != usergraph[pos1].end(); j++){
-        if(*j == idFriend){ // if found
+      return foundDegree;
+     } // end BFS
+
+
+     /**
+       * This function is called to add a faved level to graph
+       * @param int l - faved level
+       */
+
+      void addLevel(int l){
+        if(l == 0){
+          levelZero++;
+        }else if (l == 1){
           levelOne++;
-        }
-        pos2 = sequencialSearch(*j); //get each levelTwo owner friend position to test if its a levelTwo like
-        if(pos2 != -1) // test if exists the levelTwo person
-        for(k = next(usergraph[pos2].begin(),1); k != usergraph[pos2].end(); k++){
-          if(*k == idFriend){ // if found
-            levelTwo++;
-          }
-          pos3 = sequencialSearch(*k); // get each levelThree owner friend position to thest if its a levelThree like
-          if(pos3 != -1) // test is exisist the levelThree person
-          for( l = next(usergraph[pos3].begin(),1); l != usergraph[pos3].end(); l++){
-            if(*l == idFriend){// if found
-              levelThree++;
-            }
-            pos4 = sequencialSearch(*l); // get each levelFour owner friend position to test if its a levelFour like
-            if(pos4 != -1) // test if exsist the levelFour person
-            for(m = next(usergraph[pos4].begin(),1); m != usergraph[pos4].end(); m++){
-              if(*m == idFriend){ // if found
-                levelFour++;
-              }
-            }
-          }
+        }else if(l == 2){
+          levelTwo++;
+        }else if(l == 3){
+          levelThree++;
+        }else{
+          levelFour++;
         }
       }
-    }// end for levelZero
-  }
-/**/
      
-    void largeSearch (double idOwner, double idFriend){
-      int* busca = new int[5];
-      int pos, pos1, pos2, pos3, pos4;
-      list<double>::iterator i,j,k,l,m;
-      pos = sequencialSearch(idOwner); 
-      if(pos != -1 && hasOnList(idOwner,pos,idFriend) != 1){ // like level 0
-        for(i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
-          pos1 = sequencialSearch(*i);
-          if(pos1 != -1 && hasOnList(*i,pos1,idFriend) != 1){ // like level 1
-            for(j = next(usergraph[pos1].begin(),1); j != usergraph[pos1].end(); j++){
-              pos2 = sequencialSearch(*j);
-              if(pos2 != -1 && hasOnList(*j,pos2,idFriend) != 1){ // like level 2
-                for(k = next(usergraph[pos2].begin(),1); k != usergraph[pos2].end(); k++){
-                  pos3 = sequencialSearch(*k);
-                  if(pos3 != -1 && hasOnList(*k,pos3,idFriend) != 1){ // like level 3
-                    for(l = next(usergraph[pos3].begin(),1); l != usergraph[pos3].end(); l++){
-                      pos4 = sequencialSearch(*l);
-                      if(pos4 != -1 && hasOnList(*l,pos4,idFriend) == 1){ // like level 4
-                        busca[4] = 1;
-                      }
-                    }
-                  }else{
-                    busca[3] = 1;
-                  }
-                }
-              }else{
-                busca[2] = 1;
-              }
-            }
-          }else{
-            busca[1] = 1;
-          }
-        }
-      }else{
-        busca[0] = 1;
-      }
-      for ( int i = 0; i < 5; i++ ){
-        if (busca[i] != 0){
-          if (i == 0){
-            levelZero++;
-            i = 5;
-          }else if (i == 1){
-            levelOne++;
-            i = 5;
-          }else if (i == 2){
-            levelTwo++;
-            i = 5;
-          }else if (i == 3){
-            levelThree++;
-            i = 5;
-          }else{
-            levelFour++;
-            i = 5;
-          }
-        }
-      }
-    }
 /**/    
-  }; // end class graph
+    }; // end class graph
 
-//   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
-// int main ()
+  //   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
+  // int main ()
 // {
-
-//   graph g;
-
-//   g.addEdge(1,2);
+  
+  //   graph g;
+  
+  //   g.addEdge(1,2);
 //   g.addEdge(1,123.312);
 //   g.addEdge(1,4);
 //   g.addEdge(33.33,212);
