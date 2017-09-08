@@ -65,20 +65,6 @@ int main ()
 {
   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
 
-    // Default occurence of strings
-
-  //std::string base="10000137@N04,10231841@N06,0,0";         //CASO 0
-  //std::string base="99997777@N00,6879369765,1,1329283214";    //CASO 1
-  // string base="10000126@N02,4074743559,2,1324475489";  //CASO 2
-
-
-    // Testing Split Function \\
-
-  // string* teste = split(base, ',');
-  // cout << clearUserID (teste[0]) <<'\n'
-       // << teste[1] <<'\n'
-       // << teste[2] <<'\n'
-       // << teste[3] <<'\n';
 
     //////////////////////// END OF TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
   
@@ -131,12 +117,14 @@ int main ()
         photoId = stod(input[1]); // Converts the String to a double value
         g.addVertex(userIdA);
         idOwner = d.findOwner(photoId);
+        if (idOwner != 0)
         g.largeSearch(idOwner,userIdA);
         timeStamp = stod(input[3]); // Converts the String to a double value
-        // cout << "\nEvent 2 - (Photo Faved)\n" 
-        //         << "  userId : " << userIdA << '\n' 
-        //         << "  photoId : " << photoId << '\n'
-        //         << "  TimeStamp : "<< timeStamp << '\n';
+         // cout << "\nEvent 2 - (Photo Faved)\n" 
+         //         << "  userId : " << userIdA << '\n' 
+         //         << "  photoId : " << photoId << '\n'
+         //         << " owner : " << idOwner << '\n'
+         //         << "  TimeStamp : "<< timeStamp << '\n';
       }
     getline (cin, str);
     }

@@ -211,61 +211,55 @@
        } // end first if
      }// end method
 /**/
-
+     int hasOnList(double p, int pos, double f){
+      int answer = -1;
+      list<double>::iterator i;
+      for(i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
+        if(f == *i){
+          answer = 1;
+       }
+      }
+      return answer;
+     }
    /**
      * Graph Large Search to find the level of each person who liked a photo
      * @param double idOwner - Photo Owner
      * @param double idFriend - Person who liked
      */
 
+/** /
   void largeSearch (double idOwner, double idFriend){
     int pos, pos1, pos2, pos3, pos4;
     list<double>::iterator i,j,k,l,m;
-    int found = 0;
     pos = sequencialSearch(idOwner); // get the Owner position if it exists
     if (pos != -1) // test if Owner exist, if dont wont do anything
-    for( i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
-      cout << "to no for 1" << '\n';
-      if(found == 0 && *i == idFriend){
-        cout << "achei nivel 0" << '\n';
+    for(i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
+      if(*i == idFriend){
         levelZero++;
-        found = 1;
       }
       pos1 = sequencialSearch(*i); // get each owner levelZero friend position to test if its a levelOne like
-      if(found == 0 && pos1 != -1) // test if exists the levelOne person
-      for( j = next(usergraph[pos1].begin(),1); j != usergraph[pos1].end(); j++){
-        cout << "to no for 2" << '\n';
-        if(found == 0 && *j == idFriend){ // if found
-          cout << "achei nivel 1" << '\n';
+      if(pos1 != -1) // test if exists the levelOne person
+      for(j = next(usergraph[pos1].begin(),1); j != usergraph[pos1].end(); j++){
+        if(*j == idFriend){ // if found
           levelOne++;
-          found = 1;
         }
         pos2 = sequencialSearch(*j); //get each levelTwo owner friend position to test if its a levelTwo like
-        if(found == 0 && pos2 != -1) // test if exists the levelTwo person
-        for( k = next(usergraph[pos2].begin(),1); k != usergraph[pos2].end(); k++){
-          cout << "to no for 3" << '\n';
-          if(found == 0 && *k == idFriend){ // if found
-            cout << "achei nivel 2" << '\n';
+        if(pos2 != -1) // test if exists the levelTwo person
+        for(k = next(usergraph[pos2].begin(),1); k != usergraph[pos2].end(); k++){
+          if(*k == idFriend){ // if found
             levelTwo++;
-            found = 1;
           }
           pos3 = sequencialSearch(*k); // get each levelThree owner friend position to thest if its a levelThree like
-          if(found == 0 && pos3 != -1) // test is exisist the levelThree person
+          if(pos3 != -1) // test is exisist the levelThree person
           for( l = next(usergraph[pos3].begin(),1); l != usergraph[pos3].end(); l++){
-            cout << "to no for 4" << '\n';
-            if(found == 0 && *l == idFriend){// if found
-              cout << "achei nivel 3" << '\n';
+            if(*l == idFriend){// if found
               levelThree++;
-              found = 1;
             }
             pos4 = sequencialSearch(*l); // get each levelFour owner friend position to test if its a levelFour like
-            if(found == 0 && pos4 != -1) // test if exsist the levelFour person
-            for( m = next(usergraph[pos4].begin(),1); m != usergraph[pos4].end(); m++){
-              cout << "to no for 5" << '\n';
-              if(found == 0 && *m == idFriend){ // if found
-                cout << "achei nivel 4" << '\n';
+            if(pos4 != -1) // test if exsist the levelFour person
+            for(m = next(usergraph[pos4].begin(),1); m != usergraph[pos4].end(); m++){
+              if(*m == idFriend){ // if found
                 levelFour++;
-                found = 1;
               }
             }
           }
@@ -273,6 +267,66 @@
       }
     }// end for levelZero
   }
+/**/
+     
+    void largeSearch (double idOwner, double idFriend){
+      int* busca = new int[5];
+      int pos, pos1, pos2, pos3, pos4;
+      list<double>::iterator i,j,k,l,m;
+      pos = sequencialSearch(idOwner); 
+      if(pos != -1 && hasOnList(idOwner,pos,idFriend) != 1){ // like level 0
+        for(i = next(usergraph[pos].begin(),1); i != usergraph[pos].end(); i++){
+          pos1 = sequencialSearch(*i);
+          if(pos1 != -1 && hasOnList(*i,pos1,idFriend) != 1){ // like level 1
+            for(j = next(usergraph[pos1].begin(),1); j != usergraph[pos1].end(); j++){
+              pos2 = sequencialSearch(*j);
+              if(pos2 != -1 && hasOnList(*j,pos2,idFriend) != 1){ // like level 2
+                for(k = next(usergraph[pos2].begin(),1); k != usergraph[pos2].end(); k++){
+                  pos3 = sequencialSearch(*k);
+                  if(pos3 != -1 && hasOnList(*k,pos3,idFriend) != 1){ // like level 3
+                    for(l = next(usergraph[pos3].begin(),1); l != usergraph[pos3].end(); l++){
+                      pos4 = sequencialSearch(*l);
+                      if(pos4 != -1 && hasOnList(*l,pos4,idFriend) == 1){ // like level 4
+                        busca[4] = 1;
+                      }
+                    }
+                  }else{
+                    busca[3] = 1;
+                  }
+                }
+              }else{
+                busca[2] = 1;
+              }
+            }
+          }else{
+            busca[1] = 1;
+          }
+        }
+      }else{
+        busca[0] = 1;
+      }
+      for ( int i = 0; i < 5; i++ ){
+        if (busca[i] != 0){
+          if (i == 0){
+            levelZero++;
+            i = 5;
+          }else if (i == 1){
+            levelOne++;
+            i = 5;
+          }else if (i == 2){
+            levelTwo++;
+            i = 5;
+          }else if (i == 3){
+            levelThree++;
+            i = 5;
+          }else{
+            levelFour++;
+            i = 5;
+          }
+        }
+      }
+    }
+/**/    
   }; // end class graph
 
 //   //////////////////////// TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
