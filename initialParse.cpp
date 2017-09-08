@@ -1,14 +1,13 @@
 
-/** Arquitetura de Computadores III - Lesandro Ponciano
-  * Trabalho Pratico 1 - Flicker Database
-  * Integrantes: Igor Machado Seixas
-  *              Joao Castro
-  *              Paulo Junio
-  * Linguagem utilizada: C++
-  * Recursos: <string> substr (int inicio, int quantidade) - Substring
-  *           <string> find (String padrao) - "contains" retorna posicao do padrao se achar, se nao achar returna -1
-  *           <string> at (int posicao) - "charAt" retorna o char da posicao passada por parametro
-  *           <string> stod (string str) - "parseDouble" retorna o valor double da string em parametro
+/** Computer Architecture III - Lesandro Ponciano
+  * Work 1 - Flickr Database
+  * Group: Igor Machado Seixas
+  *        Joao Castro
+  *        Paulo Junio
+  *
+  * Used language: C++
+  *
+  * For more information please follow to github.com/castrob/ac3_flickr repository
   */
   
   // Imports
@@ -26,6 +25,7 @@
     * @return returns an array of string
     * Complexity O(n)
     */
+
   string* split(string str, char c){
     // Initializing the array with 4 slots
     string* answer = new string[4];
@@ -46,6 +46,7 @@
     * @return double - double value of userId.
     * Complexity O(n)
     */
+
   double clearUserID(string str){
     double answer = 0.0;
     string tmp = "0";
@@ -69,26 +70,24 @@ int main ()
     //////////////////////// END OF TESTING AREA \\\\\\\\\\\\\\\\\\\\\\
   
   // Declaring elements
-  graph g;
-  dictionary d;
+  graph g; // graph with all friendship relation
+  dictionary d; // dictionary with all photo and owner posted
   string str;  // Declaring str as base string
   string* input; // Declaring the String Array
   string::size_type sz; // alias for size_t
-  list<double>* faved = new list<double>[3000000];
-  list<string> eventTwo;
-  int k = 0;
+  list<double>* faved = new list<double>[3000000]; // List that will be used to search faved events
+  list<string> eventTwo; // String List to store all faved events to only count them on the end
   double userIdA; // Change from String to Int
   double userIdB; // Change from String to Int
   double photoId; // Change from String to Int
   double idOwner;
-  int n = 0;
-  int x = 0;
+  int k = 0; // Not Used
+  int n = 0; // faved List positions
   double timeStamp; // Change from String to Int
 
- 
+  // Read line function
   getline (cin, str);
-//  while(!str.empty()){
-  while(x < 50000){    
+  while(!str.empty()){    
     // Split the str String
     input = split(str, ',');
       // input[0] - userId (ALWAYS)
@@ -121,8 +120,8 @@ int main ()
       }else{
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
         // photoId = stod(input[1]); // Converts the String to a double value
-        g.addVertex(userIdA);
-        eventTwo.push_back(str);
+        g.addVertex(userIdA); // Creates the userIdA vertex if it doesnt exists
+        eventTwo.push_back(str); // fill the evenTwo list with all faved events to count later
         // idOwner = d.findOwner(photoId);
         // if (idOwner != 0 && n < 500){
         //   faved[n].push_back(idOwner);
@@ -137,8 +136,9 @@ int main ()
          //         << "  TimeStamp : "<< timeStamp << '\n';
       }
      getline (cin, str);
-     x++;
     }
+    // now we will count each faved event getting the personId who faved and the ownerId of each faved photo
+    // and put it in the faved list to search each level after with BFS
     list<string>::iterator i;
     for (i = eventTwo.begin(); i != eventTwo.end(); i++ ){
       input = split(*i,',');
@@ -151,16 +151,18 @@ int main ()
         n++;
         }
     }
-
+  // Print Graph of Friendship and Dictionary of Posted Photos
   g.printGraph();
   d.printPhotos();
-   int pos = 0;
+
+  // Parallel area to search each fav level
+  int pos = 0;
   #pragma omp paralell for
   for (; pos < n; pos++ ){
       int l = g.BFS(*faved[pos].begin(), *next(faved[pos].begin(),1) );
       g.addLevel(l);
   }
-
+  // printing the percentage of each level
   double sum = g.levelZero + g.levelOne + g.levelTwo + g.levelThree + g.levelFour;
   cout << "0: " << ((double)g.levelZero/sum) << '\n'
   	   << "1: " << ((double)g.levelOne/sum) << '\n'

@@ -1,5 +1,5 @@
 Trabalho Prático - Arquitetura de Computadores III
-Linguagem - C++
+Linguagem - C++ (GCC 7.1.1)
 Igor Machado Seixas
 João Paulo de Castro
 Paulo Junio

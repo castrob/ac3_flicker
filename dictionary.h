@@ -1,13 +1,13 @@
-/** Arquitetura de Computadores III - Lesandro Ponciano
-  * Trabalho Pratico 1 - Flicker Database
-  * Integrantes: Igor Machado Seixas
-  *              Joao Castro
-  *              Paulo Junio
-  * Linguagem utilizada: C++
-  * Recursos: <string> substr (int inicio, int quantidade) - Substring
-  *           <string> find (String padrao) - "contains" retorna posicao do padrao se achar, se nao achar returna -1
-  *           <string> at (int posicao) - "charAt" retorna o char da posicao passada por parametro
-  *           <string> stod (string str) - "parseDouble" retorna o valor double da string em parametro
+
+/** Computer Architecture III - Lesandro Ponciano
+  * Work 1 - Flickr Database
+  * Group: Igor Machado Seixas
+  *        Joao Castro
+  *        Paulo Junio
+  *
+  * Used language: C++
+  *
+  * For more information please follow to github.com/castrob/ac3_flickr repository
   */
 
   // Imports
