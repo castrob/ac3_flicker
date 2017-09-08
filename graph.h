@@ -14,11 +14,12 @@
   // Imports
   #include <iostream>
   #include <list>
+  #include "omp.h"
   #include <algorithm>
   //#include <string> // Not Used
   using namespace std;
 
-  #define ARRAY_SIZE 200  // Define the length of the study group
+  #define ARRAY_SIZE 3000000  // Define the length of the study group
 
   class graph {
    public:
@@ -85,33 +86,6 @@
        usergraph[n].push_front(v);
        n++;
       }
-     }
-
-
-   /**
-     * Binary Find
-     * @param u - User which will be search
-     */
-     int binaryFind ( double u ) {
-       int left = 0, right = n -1, middle;
-       int ans = -1;
-
-       while (left <= right) {
-         middle = (left+right) /2;
-
-         if ( u == *usergraph[middle].begin( ) ) {
-           ans = middle;
-           left = ARRAY_SIZE;
-         } else {
-           if ( u > *usergraph[middle].begin( ) ) {
-             left = middle+1;
-           } else {
-             right = middle-1;
-           }
-         }
-       } // end while
-
-       return ans;
      }
 
     /**
@@ -225,7 +199,7 @@
           levelTwo++;
         }else if(l == 3){
           levelThree++;
-        }else{
+        }else if(l == 4){
           levelFour++;
         }
       }

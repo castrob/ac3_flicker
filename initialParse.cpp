@@ -14,6 +14,7 @@
   // Imports
   #include <iostream>
   #include "graph.h"
+  #include "omp.h"
   #include "dictionary.h"
   //#include <string> // Not Used
   using namespace std;
@@ -73,15 +74,21 @@ int main ()
   string str;  // Declaring str as base string
   string* input; // Declaring the String Array
   string::size_type sz; // alias for size_t
+  list<double>* faved = new list<double>[3000000];
+  list<string> eventTwo;
+  int k = 0;
   double userIdA; // Change from String to Int
   double userIdB; // Change from String to Int
   double photoId; // Change from String to Int
   double idOwner;
+  int n = 0;
+  int x = 0;
   double timeStamp; // Change from String to Int
 
  
   getline (cin, str);
-  while(!str.empty()){
+//  while(!str.empty()){
+  while(x < 50000){    
     // Split the str String
     input = split(str, ',');
       // input[0] - userId (ALWAYS)
@@ -113,29 +120,53 @@ int main ()
       // Event 2 - (Faved)                
       }else{
         userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
-        photoId = stod(input[1]); // Converts the String to a double value
+        // photoId = stod(input[1]); // Converts the String to a double value
         g.addVertex(userIdA);
-        idOwner = d.findOwner(photoId);
-        if (idOwner != 0){
-          int l = g.BFS(idOwner,userIdA);
-          g.addLevel(l);
-        }
-        timeStamp = stod(input[3]); // Converts the String to a double value
+        eventTwo.push_back(str);
+        // idOwner = d.findOwner(photoId);
+        // if (idOwner != 0 && n < 500){
+        //   faved[n].push_back(idOwner);
+        //   faved[n].push_back(userIdA);
+        //   n++;
+        // }
+        // timeStamp = stod(input[3]); // Converts the String to a double value
          // cout << "\nEvent 2 - (Photo Faved)\n" 
          //         << "  userId : " << userIdA << '\n' 
          //         << "  photoId : " << photoId << '\n'
          //         << " owner : " << idOwner << '\n'
          //         << "  TimeStamp : "<< timeStamp << '\n';
       }
-    getline (cin, str);
+     getline (cin, str);
+     x++;
     }
+    list<string>::iterator i;
+    for (i = eventTwo.begin(); i != eventTwo.end(); i++ ){
+      input = split(*i,',');
+      userIdA = clearUserID(input[0]); // clearUserId (String) remove the @N Characters and returns the String long value
+      photoId = stod(input[1]); // Converts the String to a double value
+      idOwner = d.findOwner(photoId);
+      if (idOwner != 0){
+        faved[n].push_back(idOwner);
+        faved[n].push_back(userIdA);
+        n++;
+        }
+    }
+
   g.printGraph();
   d.printPhotos();
-  cout << "0: " << g.levelZero << '\n'
-  	   << "1: " << g.levelOne << '\n'
-  	   << "2: " << g.levelTwo << '\n'
-  	   << "3: " << g.levelThree << '\n'
-  	   << "4: " << g.levelFour << '\n';
+   int pos = 0;
+  #pragma omp paralell for
+  for (; pos < n; pos++ ){
+      int l = g.BFS(*faved[pos].begin(), *next(faved[pos].begin(),1) );
+      g.addLevel(l);
+  }
+
+  double sum = g.levelZero + g.levelOne + g.levelTwo + g.levelThree + g.levelFour;
+  cout << "0: " << ((double)g.levelZero/sum) << '\n'
+  	   << "1: " << ((double)g.levelOne/sum) << '\n'
+  	   << "2: " << ((double)g.levelTwo/sum) << '\n'
+  	   << "3: " << ((double)g.levelThree/sum) << '\n'
+  	   << "4: " << ((double)g.levelFour/sum) << '\n';
   return 0;
 }
 
